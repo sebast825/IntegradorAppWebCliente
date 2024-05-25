@@ -1,4 +1,7 @@
-﻿using Integrador.Dal;
+﻿using AutoMapper;
+using Azure;
+using Integrador.Dal;
+using Integrador.Dal.Entities;
 using Integrador.Dto.Viajes;
 using Integrador.Service.Interface;
 
@@ -8,14 +11,26 @@ namespace Integrador.Service
     {
 
         private readonly IUnitOfWork _unitOfWork;
-
+//        private readonly IMapper _mapper;
         public ViajeService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<ViajeReponseDTO> Create(ViajeCreateRequestDTO dto)
+        public async Task<ViajeReponseDTO> Create(ViajeCreateRequestDTO dto)
         {
-            throw new NotImplementedException();
+            /*
+            if (_mapper == null)
+            {
+                throw new InvalidOperationException("Mapper no está inicializado.");
+            }
+            var viajeEntity = _mapper.Map<Viaje>(dto);
+
+            await _unitOfWork.ViajeRepository.Add(viajeEntity);
+                        var result = _mapper.Map<ViajeReponseDTO>(dto);
+
+            */
+            ViajeReponseDTO response = new ViajeReponseDTO();
+            return await Task.FromResult(response);
         }
 
         public async Task<List<ViajeReponseDTO>> GetAll()
@@ -25,9 +40,12 @@ namespace Integrador.Service
 
                 }
 
-        public Task<List<ViajeReponseDTO>> GetByDomimnio(string dominio)
+        public async Task<List<ViajeReponseDTO>> GetByDomimnio(string dominio)
         {
-            throw new NotImplementedException();
+            var viaje = await _unitOfWork.ViajeRepository.GetByDominio(dominio);
+            return null;
         }
+
+      
     }
 }

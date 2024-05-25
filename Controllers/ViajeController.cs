@@ -20,9 +20,23 @@ namespace Integrador.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<ViajeReponseDTO>>> GetAll()
         {
-            var algo = await _viajeService.GetAll();
+             await _viajeService.GetAll();
             return Ok();
         }
 
+        [HttpGet("GetByDomimnio")]
+        public async Task<ActionResult<List<ViajeReponseDTO>>> GetByDomimnio(string dominio)
+        {
+            await _viajeService.GetByDomimnio(dominio);
+            return Ok();
+        }
+
+        [HttpPost("Create")]
+        public async Task<ActionResult<bool>> Create(ViajeCreateRequestDTO viaje)
+        {
+
+            var respuesta = await _viajeService.Create(viaje);
+            return Ok(respuesta);
+        }
     }
 }

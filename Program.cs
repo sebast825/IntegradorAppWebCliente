@@ -5,6 +5,7 @@ using Integrador.Dal.Repository.Interface;
 using Integrador.Service;
 using Integrador.Service.Interface;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(x=> new UnitOfWork(x.GetRequ
     x.GetRequiredService<IViajeRepositorio>()));
 
 builder.Services.AddScoped < IViajeService, ViajeService >();
+
 
 var app = builder.Build();
 
