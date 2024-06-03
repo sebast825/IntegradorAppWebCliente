@@ -21,7 +21,7 @@ namespace Integrador.Controllers
         public async Task<ActionResult<List<ViajeReponseDTO>>> GetAll()
         {
             var viajes =  await _viajeService.GetAll();
-            return viajes;
+            return Ok(viajes);
         }
 
         [HttpGet("GetByDomimnio")]

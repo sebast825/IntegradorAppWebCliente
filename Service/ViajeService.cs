@@ -13,10 +13,11 @@ namespace Integrador.Service
     {
 
         private readonly IUnitOfWork _unitOfWork;
-//        private readonly IMapper _mapper;
-        public ViajeService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public ViajeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<ViajeReponseDTO> Create(ViajeCreateRequestDTO dto)
         {
@@ -37,34 +38,41 @@ namespace Integrador.Service
 
         public async Task<List<ViajeReponseDTO>> GetAll()
         {
+
             var viajes = await _unitOfWork.ViajeRepository.GetAll();
-            
-            var listaViajes = new List<ViajeReponseDTO>();
-            foreach(Viaje viaje in  viajes)
-            {
-                var camion = viaje.Camion;
-                var duracionViaje = (viaje.FechaLLegada - viaje.FechaSalida).TotalHours;
+            var result = _mapper.Map<List<ViajeReponseDTO>>(viajes);
 
-                var viajeDto =  new ViajeReponseDTO
-                {
-                    Dominio = camion?.Dominio,
-                Conductor = camion?.Conductor,
-                CiudadOrigen = viaje.CiudadOrigen,
-                CiudadDestino = viaje.CiudadDestino,
-                FechaHoraSalida = viaje.FechaSalida.ToString(),
-                FechaHoraLlegada = viaje.FechaLLegada.ToString(),
-                Distancia = viaje.kilometraje.ToString(),
-               DuracionViaje = Convert.ToDecimal(duracionViaje)
-            };
-                listaViajes.Add(viajeDto);
-            }
-            foreach(ViajeReponseDTO viaje in listaViajes)
-            {
-                Console.WriteLine(viaje.Conductor);
-            }
-            return listaViajes;
+            return result;
+            /*  
+             * DE FORMA MANUAL, SIN EL MAPPER
+             *  var viajes = await _unitOfWork.ViajeRepository.GetAll();
 
-                }
+              var listaViajes = new List<ViajeReponseDTO>();
+              foreach(Viaje viaje in  viajes)
+              {
+                  var camion = viaje.Camion;
+                  var duracionViaje = (viaje.FechaLLegada - viaje.FechaSalida).TotalHours;
+
+                  var viajeDto =  new ViajeReponseDTO
+                  {
+                      Dominio = camion?.Dominio,
+                  Conductor = camion?.Conductor,
+                  CiudadOrigen = viaje.CiudadOrigen,
+                  CiudadDestino = viaje.CiudadDestino,
+                  FechaHoraSalida = viaje.FechaSalida.ToString(),
+                  FechaHoraLlegada = viaje.FechaLLegada.ToString(),
+                  Distancia = viaje.kilometraje.ToString(),
+                 DuracionViaje = Convert.ToDecimal(duracionViaje)
+              };
+                  listaViajes.Add(viajeDto);
+              }
+              foreach(ViajeReponseDTO viaje in listaViajes)
+              {
+                  Console.WriteLine(viaje.Conductor);
+              }
+              return listaViajes;
+            */
+        }
 
         public async Task<List<ViajeReponseDTO>> GetByDomimnio(string dominio)
         {

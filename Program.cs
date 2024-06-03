@@ -31,7 +31,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(x=> new UnitOfWork(x.GetRequ
     x.GetRequiredService<IViajeRepositorio>()));
 
 builder.Services.AddScoped < IViajeService, ViajeService >();
-
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
