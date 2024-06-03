@@ -4,6 +4,8 @@ using Integrador.Dal;
 using Integrador.Dal.Entities;
 using Integrador.Dto.Viajes;
 using Integrador.Service.Interface;
+using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace Integrador.Service
 {
@@ -36,7 +38,31 @@ namespace Integrador.Service
         public async Task<List<ViajeReponseDTO>> GetAll()
         {
             var viajes = await _unitOfWork.ViajeRepository.GetAll();
-            return null;
+            
+            var listaViajes = new List<ViajeReponseDTO>();
+            foreach(Viaje viaje in  viajes)
+            {
+                var camion = viaje.Camion;
+                var duracionViaje = (viaje.FechaLLegada - viaje.FechaSalida).TotalHours;
+
+                var viajeDto =  new ViajeReponseDTO
+                {
+                    Dominio = camion?.Dominio,
+                Conductor = camion?.Conductor,
+                CiudadOrigen = viaje.CiudadOrigen,
+                CiudadDestino = viaje.CiudadDestino,
+                FechaHoraSalida = viaje.FechaSalida.ToString(),
+                FechaHoraLlegada = viaje.FechaLLegada.ToString(),
+                Distancia = viaje.kilometraje.ToString(),
+               DuracionViaje = Convert.ToDecimal(duracionViaje)
+            };
+                listaViajes.Add(viajeDto);
+            }
+            foreach(ViajeReponseDTO viaje in listaViajes)
+            {
+                Console.WriteLine(viaje.Conductor);
+            }
+            return listaViajes;
 
                 }
 

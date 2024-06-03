@@ -20,8 +20,8 @@ namespace Integrador.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<ViajeReponseDTO>>> GetAll()
         {
-             await _viajeService.GetAll();
-            return Ok();
+            var viajes =  await _viajeService.GetAll();
+            return viajes;
         }
 
         [HttpGet("GetByDomimnio")]
