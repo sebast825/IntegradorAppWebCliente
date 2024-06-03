@@ -10,11 +10,12 @@ namespace Integrador.Dal.Repository
         public ViajeRepositorio(DataContext context) : base(context)
         {
         }
+        /*
         public new async Task<List<Viaje>> GetAll()
         {
             //es necesario para que sincronice los datos de camion tambien, si no no los trae
             return await _context.Viajes.Include(v => v.Camion).ToListAsync();
-        }
+        }*/
         public async Task<List<Viaje>> GetByDominio(string dominio)
         {
             var viaje = await _context.Viajes.Include(x => x.Camion).Where(x => x.Camion.Dominio == dominio).ToListAsync();

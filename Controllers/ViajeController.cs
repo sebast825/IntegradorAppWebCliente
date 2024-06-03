@@ -27,8 +27,8 @@ namespace Integrador.Controllers
         [HttpGet("GetByDomimnio")]
         public async Task<ActionResult<List<ViajeReponseDTO>>> GetByDomimnio(string dominio)
         {
-            await _viajeService.GetByDomimnio(dominio);
-            return Ok();
+            var viaje = await _viajeService.GetByDomimnio(dominio);
+            return Ok(viaje);
         }
 
         [HttpPost("Create")]

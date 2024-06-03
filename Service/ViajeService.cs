@@ -76,8 +76,10 @@ namespace Integrador.Service
 
         public async Task<List<ViajeReponseDTO>> GetByDomimnio(string dominio)
         {
-            var viaje = await _unitOfWork.ViajeRepository.GetByDominio(dominio);
-            return null;
+            var viajes = await _unitOfWork.ViajeRepository.GetByDominio(dominio);
+            var result = _mapper.Map<List<ViajeReponseDTO>>(viajes);
+
+            return result;
         }
 
       
