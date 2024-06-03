@@ -29,8 +29,9 @@ namespace Integrador.Dal.Repository
 
         public async Task<List<T>> GetAll()
         {
+
             /*toListAsync una vez que termina cierra la peticion con la db*/
-return await _context.Set<T>().ToListAsync();        }
+            return await _context.Set<T>().ToListAsync();        }
 
         public async Task<T> GetId(int id)
         {
