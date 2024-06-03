@@ -14,10 +14,15 @@ namespace Integrador.Dal.Repository
         public async Task<Camion> GetByDominio(string dominio)
         {
             /*para cada camion trae todos los viajes que tiene*/
-            var camion = _context.Camiones
+            /* Para cada camion trae todos los viajes que tiene */
+            var camion = await _context.Camiones
                 .Include(c => c.Viajes)
-                .Where(x=>x.Dominio == dominio).FirstOrDefault();
-            return camion;
-                }
+                .FirstOrDefaultAsync(x => x.Dominio == dominio); // Asegúrate de que sea una operación asincrónica
+            
+            return camion; // Retorna el camion encontrado
+        }
+
+      
+
     }
 }

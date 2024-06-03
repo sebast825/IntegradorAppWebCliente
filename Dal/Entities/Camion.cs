@@ -1,4 +1,6 @@
-﻿namespace Integrador.Dal.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Integrador.Dal.Entities
 {
     public class Camion : ClaseBase
     {
@@ -9,7 +11,7 @@
         public int Anio { get; set; }
         public string NumeroChasis { get; set; }
         public string NumeroMotor { get; set; }
-
+        [JsonIgnore]
         public List<Viaje> Viajes { get;set; }
     }
 }

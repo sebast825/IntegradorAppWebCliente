@@ -42,7 +42,8 @@ namespace Integrador.Service
 
         public async Task<List<CamionReponseDTO>> GetByDomimnio(string dominio)
         {
-            var Camion = await _unitOfWork.CamionRepository.GetByDominio(dominio);
+            var camion = await _unitOfWork.CamionRepository.GetByDominio(dominio);
+            Console.WriteLine(camion);
             return null;
         }
 
