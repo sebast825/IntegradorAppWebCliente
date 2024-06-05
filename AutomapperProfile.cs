@@ -3,6 +3,7 @@ using Integrador.Dal;
 using Integrador.Dal.Entities;
 using Integrador.Dto.Camion;
 using Integrador.Dto.Viajes;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace Integrador
 {
@@ -36,6 +37,11 @@ namespace Integrador
             //.ForMember(dest => dest.NumeroMotor, opt => opt.MapFrom(src => src.NumeroMotor))
             //.ForMember(dest => dest.Anio, opt => opt.MapFrom(src => src.Anio));
             //CreateMap<CamionReponseDTO, Camion>();
+            CreateMap<CamionCreateRequestDTO, Camion> ();
+            CreateMap<Camion, CamionReponseDTO>()
+                .ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => $"{src.Marca} {src.Modelo}"));
+          
+
 
         }
 

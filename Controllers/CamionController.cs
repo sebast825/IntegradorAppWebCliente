@@ -1,5 +1,7 @@
 ﻿using Integrador.Dal.Repository.Interface;
+using Integrador.Dto.Camion;
 using Integrador.Dto.Viajes;
+using Integrador.Service;
 using Integrador.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +13,8 @@ namespace Integrador.Controllers
     public class CamionController : ControllerBase
     {
         private readonly ICamionService _camionService;
-        public CamionController( ICamionService camionService) {
+        public CamionController(ICamionService camionService)
+        {
             _camionService = camionService;
         }
 
@@ -27,6 +30,12 @@ namespace Integrador.Controllers
         {
             var viaje = await _camionService.GetAll();
             return Ok(viaje);
+        }
+        [HttpPost("Create")]
+        public async Task<ActionResult<bool>> Create(CamionCreateRequestDTO camion)
+        {
+            var respuesta = await _camionService.Create(camion);
+            return respuesta != null ? Ok(respuesta) : BadRequest("No se pudo ejercutar correctamente");
         }
     }
 }

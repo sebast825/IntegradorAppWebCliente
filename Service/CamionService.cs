@@ -4,7 +4,9 @@ using Integrador.Dal;
 using Integrador.Dal.Entities;
 using Integrador.Dto.Camion;
 using Integrador.Service.Interface;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+
 
 namespace Integrador.Service
 {
@@ -20,6 +22,19 @@ namespace Integrador.Service
         }
         public async Task<CamionReponseDTO> Create(CamionCreateRequestDTO dto)
         {
+            var entity = _mapper.Map<Camion>(dto);
+            
+            await _unitOfWork.CamionRepository.Add(entity);
+
+            await _unitOfWork.Save();
+
+            var respuesta = _mapper.Map<CamionReponseDTO>(entity);
+            
+
+              var  cantiadViajes = await _unitOfWork.ViajeRepository.GetByDominio(dto.Dominio);
+
+            respuesta.CantidadDeViajes = cantiadViajes.Count().ToString();
+            return respuesta;
             /*
             if (_mapper == null)
             {
@@ -39,7 +54,6 @@ namespace Integrador.Service
         {
             var camiones = await _unitOfWork.CamionRepository.GetAllFull();
             // Check if camiones is a single Camion object
-            throw new InvalidOperationException("Unexpected type returned from repository");
 
             if (camiones.Count() == 1)
             {
@@ -70,7 +84,7 @@ namespace Integrador.Service
                 //Console.WriteLine(camion);
             
         }
-        public List<CamionReponseDTO> EntitiesToCamionResponseDtos(IEnumerable<Camion> camiones)
+        private List<CamionReponseDTO> EntitiesToCamionResponseDtos(IEnumerable<Camion> camiones)
         {
             var responseDtos = new List<CamionReponseDTO>();
             foreach (Camion camion in camiones)
@@ -79,7 +93,7 @@ namespace Integrador.Service
             }
             return responseDtos;
         }
-        public CamionReponseDTO EntityToCamionResponseDto(Camion camion)
+        private CamionReponseDTO EntityToCamionResponseDto(Camion camion)
         {
             var responseDto = new CamionReponseDTO
             {
@@ -94,6 +108,21 @@ namespace Integrador.Service
 
             };
             return responseDto;
+        }
+
+        private Camion CamionCreateDtoToEntity(CamionCreateRequestDTO dto)
+        {
+            var entity = new Camion
+            {
+                Dominio = dto.Dominio,
+                Modelo = dto.Modelo,
+                Marca = dto.Marca,
+                Conductor = dto.Conductor,
+                Anio = dto.Anio,
+                NumeroChasis = dto.NumeroChasis,
+                NumeroMotor = dto.NumeroMotor
+            };
+            return entity;
         }
 
 
