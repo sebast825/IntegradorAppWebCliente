@@ -11,6 +11,11 @@ namespace Integrador.Dal.Repository
         {
         }
 
+        public async Task<List<Camion>> GetAllFull()
+        {
+            //es necesario para que sincronice los datos de camion tambien, si no no los trae
+            return await _context.Camiones.Include(v => v.Viajes).ToListAsync();
+        }
         public async Task<Camion> GetByDominio(string dominio)
         {
             /*para cada camion trae todos los viajes que tiene*/

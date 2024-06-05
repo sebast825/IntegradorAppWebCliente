@@ -21,5 +21,12 @@ namespace Integrador.Controllers
             var viaje = await _camionService.GetByDomimnio(dominio);
             return Ok(viaje);
         }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<ViajeReponseDTO>>> GetAll()
+        {
+            var viaje = await _camionService.GetAll();
+            return Ok(viaje);
+        }
     }
 }
