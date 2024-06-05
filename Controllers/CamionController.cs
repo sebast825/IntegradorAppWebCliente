@@ -16,7 +16,7 @@ namespace Integrador.Controllers
         }
 
         [HttpGet("GetByDomimnio")]
-        public async Task<ActionResult<List<ViajeReponseDTO>>> GetByDomimnio(string dominio)
+        public async Task<ActionResult<ViajeReponseDTO>> GetByDomimnio(string dominio)
         {
             var viaje = await _camionService.GetByDomimnio(dominio);
             return Ok(viaje);

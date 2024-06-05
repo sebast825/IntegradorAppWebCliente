@@ -6,7 +6,7 @@ namespace Integrador.Service.Interface
     public interface ICamionService
     {
         Task<List<CamionReponseDTO>> GetAll();
-        Task<List<CamionReponseDTO>> GetByDomimnio(string dominio);
+        Task<CamionReponseDTO> GetByDomimnio(string dominio);
         Task<CamionReponseDTO> Create(CamionCreateRequestDTO dto);
 
 

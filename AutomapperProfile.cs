@@ -22,12 +22,21 @@ namespace Integrador
 .ForMember(dest => dest.DuracionViaje, opt => opt.MapFrom(src => Math.Round(Convert.ToDecimal((src.FechaLLegada - src.FechaSalida).TotalHours), 2)));
 
             CreateMap<ViajeCreateRequestDTO, Viaje>();
-            //          .ForMember(dest => dest.Camion, opt => opt.MapFrom(src => _unitOfWork.CamionRepository.GetByDominio(src.Dominio)));
 
-            ///*  CreateMap<Camion, CamionReponseDTO>()
-            //    .ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => $"{src.Marca} {src.Modelo}"))
-            //    .ForMember(dest => dest.CantidadDeViajes, opt => opt.MapFrom(src => src.Viajes.Count.ToString()));
-            //*/
+            CreateMap<Camion, CamionReponseDTO>()
+             .ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => src.Marca))
+             .ForMember(dest => dest.CantidadDeViajes, opt => opt.MapFrom(src => src.Viajes.Count.ToString()));
+
+            //CreateMap<Camion, CamionReponseDTO>()
+            //.ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => $"{src.Marca} {src.Modelo}"))
+            //.ForMember(dest => dest.CantidadDeViajes, opt => opt.MapFrom(src => src.Viajes != null ? src.Viajes.Count.ToString() : "0"))
+            //.ForMember(dest => dest.Conductor, opt => opt.MapFrom(src => src.Conductor))
+            //.ForMember(dest => dest.Dominio, opt => opt.MapFrom(src => src.Dominio))
+            //.ForMember(dest => dest.NumeroChasis, opt => opt.MapFrom(src => src.NumeroChasis))
+            //.ForMember(dest => dest.NumeroMotor, opt => opt.MapFrom(src => src.NumeroMotor))
+            //.ForMember(dest => dest.Anio, opt => opt.MapFrom(src => src.Anio));
+            //CreateMap<CamionReponseDTO, Camion>();
+
         }
 
 

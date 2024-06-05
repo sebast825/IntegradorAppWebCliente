@@ -4,6 +4,7 @@ using Integrador.Dal;
 using Integrador.Dal.Entities;
 using Integrador.Dto.Camion;
 using Integrador.Service.Interface;
+using System.Linq.Expressions;
 
 namespace Integrador.Service
 {
@@ -11,10 +12,11 @@ namespace Integrador.Service
     {
 
         private readonly IUnitOfWork _unitOfWork;
-//        private readonly IMapper _mapper;
-        public CamionService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public CamionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<CamionReponseDTO> Create(CamionCreateRequestDTO dto)
         {
@@ -40,11 +42,31 @@ namespace Integrador.Service
 
                 }
 
-        public async Task<List<CamionReponseDTO>> GetByDomimnio(string dominio)
+        public async Task<CamionReponseDTO> GetByDomimnio(string dominio)
         {
             var camion = await _unitOfWork.CamionRepository.GetByDominio(dominio);
-            Console.WriteLine(camion);
-            return null;
+           //var result = _mapper.Map<List<CamionReponseDTO>>(camion);
+
+            var camionList = new List<CamionReponseDTO>();
+            
+                var responseDto = new CamionReponseDTO
+                {
+                    MarcaModelo = camion.Marca + " " + camion.Modelo,
+                    Conductor = camion.Conductor,
+                    Dominio = camion.Dominio,
+                    CantidadDeViajes = camion.Viajes.Count().ToString(),
+                    NumeroChasis = camion.NumeroChasis,
+                    NumeroMotor = camion.NumeroMotor,
+                    Anio = camion.Anio
+
+
+                };
+                return responseDto;
+
+                //Console.WriteLine(camion);
+
+
+            
         }
 
       
