@@ -47,7 +47,6 @@ namespace Integrador.Service
             var camion = await _unitOfWork.CamionRepository.GetByDominio(dominio);
            //var result = _mapper.Map<List<CamionReponseDTO>>(camion);
 
-            var camionList = new List<CamionReponseDTO>();
             
                 var responseDto = new CamionReponseDTO
                 {

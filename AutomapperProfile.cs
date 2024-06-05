@@ -23,9 +23,9 @@ namespace Integrador
 
             CreateMap<ViajeCreateRequestDTO, Viaje>();
 
-            CreateMap<Camion, CamionReponseDTO>()
-             .ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => src.Marca))
-             .ForMember(dest => dest.CantidadDeViajes, opt => opt.MapFrom(src => src.Viajes.Count.ToString()));
+            //CreateMap<Camion, CamionReponseDTO>()
+            // .ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => src.Marca))
+            // .ForMember(dest => dest.CantidadDeViajes, opt => opt.MapFrom(src => src.Viajes.Count().ToString()));
 
             //CreateMap<Camion, CamionReponseDTO>()
             //.ForMember(dest => dest.MarcaModelo, opt => opt.MapFrom(src => $"{src.Marca} {src.Modelo}"))
