@@ -36,7 +36,7 @@ namespace Integrador.Controllers
         {
 
             var respuesta = await _viajeService.Create(viaje);
-            return Ok(respuesta);
+            return respuesta != null ? Ok(respuesta) : BadRequest("No se pudo ejercutar correctamente");
         }
     }
 }

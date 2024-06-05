@@ -21,7 +21,7 @@ namespace Integrador
 
 .ForMember(dest => dest.DuracionViaje, opt => opt.MapFrom(src => Math.Round(Convert.ToDecimal((src.FechaLLegada - src.FechaSalida).TotalHours), 2)));
 
-            CreateMap<ViajeCreateRequestDTO, Viaje>()
+            CreateMap<ViajeCreateRequestDTO, Viaje>();
             //          .ForMember(dest => dest.Camion, opt => opt.MapFrom(src => _unitOfWork.CamionRepository.GetByDominio(src.Dominio)));
 
             ///*  CreateMap<Camion, CamionReponseDTO>()

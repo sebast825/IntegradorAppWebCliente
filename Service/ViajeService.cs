@@ -25,40 +25,16 @@ namespace Integrador.Service
             var camion = await _unitOfWork.CamionRepository.GetByDominio(dto.Dominio.ToUpper());
             if(camion != null)
             {
-                var entity = _mapper.Map<Viaje>(dto);  
-                entity.dominio
-            }
-            /*
-            if (_mapper == null)
-            {
-                throw new InvalidOperationException("Mapper no está inicializado.");
-            }
-            var viajeEntity = _mapper.Map<Viaje>(dto);
-
-            await _unitOfWork.ViajeRepository.Add(viajeEntity);
-                        var result = _mapper.Map<ViajeReponseDTO>(dto);
-
-            */
-            //metodo traer camion x dominio -> trae camion validar sie xiste
-
-            //viajeCreate
-            /*
-            var camion = await _unitOfWork.CamionRepository.GetByDominio(viajeCreate.Dominio.ToUpper());
-            if (camion != null)
-            {
-                var entitty = _mapper.Map<Viaje>(viajeCreate);
-
-                entitty.IdCamion = camion.Id;
-                await _unitOfWork.ViajeRepository.Add(entitty);
+                var entity = _mapper.Map<Viaje>(dto);
+                entity.IdCamion= camion.Id;
+                await _unitOfWork.ViajeRepository.Add(entity);
                 await _unitOfWork.Save();
-
-                return _mapper.Map<ViajeReponseDTO>(entitty);
+                return _mapper.Map<ViajeReponseDTO>(entity);
             }
-            return null;*/
+            
+         
 
-
-            ViajeReponseDTO response = new ViajeReponseDTO();
-            return await Task.FromResult(response);
+            return null;
 
 
         }
