@@ -22,6 +22,8 @@ namespace Integrador.Dal.Repository
             return camion; // Retorna el camion encontrado
         }
 
+
+
       
 
     }

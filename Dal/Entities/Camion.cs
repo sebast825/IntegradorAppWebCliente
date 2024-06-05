@@ -11,7 +11,7 @@ namespace Integrador.Dal.Entities
         public int Anio { get; set; }
         public string NumeroChasis { get; set; }
         public string NumeroMotor { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<Viaje> Viajes { get;set; }
     }
 }

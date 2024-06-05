@@ -21,6 +21,13 @@ namespace Integrador.Service
         }
         public async Task<ViajeReponseDTO> Create(ViajeCreateRequestDTO dto)
         {
+
+            var camion = await _unitOfWork.CamionRepository.GetByDominio(dto.Dominio.ToUpper());
+            if(camion != null)
+            {
+                var entity = _mapper.Map<Viaje>(dto);  
+                entity.dominio
+            }
             /*
             if (_mapper == null)
             {
@@ -32,14 +39,34 @@ namespace Integrador.Service
                         var result = _mapper.Map<ViajeReponseDTO>(dto);
 
             */
+            //metodo traer camion x dominio -> trae camion validar sie xiste
+
+            //viajeCreate
+            /*
+            var camion = await _unitOfWork.CamionRepository.GetByDominio(viajeCreate.Dominio.ToUpper());
+            if (camion != null)
+            {
+                var entitty = _mapper.Map<Viaje>(viajeCreate);
+
+                entitty.IdCamion = camion.Id;
+                await _unitOfWork.ViajeRepository.Add(entitty);
+                await _unitOfWork.Save();
+
+                return _mapper.Map<ViajeReponseDTO>(entitty);
+            }
+            return null;*/
+
+
             ViajeReponseDTO response = new ViajeReponseDTO();
             return await Task.FromResult(response);
+
+
         }
 
         public async Task<List<ViajeReponseDTO>> GetAll()
         {
 
-            var viajes = await _unitOfWork.ViajeRepository.GetAll();
+            var viajes = await _unitOfWork.ViajeRepository.GetAllFull();
             var result = _mapper.Map<List<ViajeReponseDTO>>(viajes);
 
             return result;
