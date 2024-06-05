@@ -5,6 +5,7 @@ using Integrador.Dal.Entities;
 using Integrador.Dto.Camion;
 using Integrador.Service.Interface;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq.Expressions;
 
 
@@ -32,8 +33,8 @@ namespace Integrador.Service
             
 
               var  cantiadViajes = await _unitOfWork.ViajeRepository.GetByDominio(dto.Dominio);
+            respuesta.CantidadDeViajes = cantiadViajes.Count().ToString(); //siempre va  aser 0 pero bue ya queda la logica
 
-            respuesta.CantidadDeViajes = cantiadViajes.Count().ToString();
             return respuesta;
             /*
             if (_mapper == null)
@@ -82,6 +83,21 @@ namespace Integrador.Service
             return EntityToCamionResponseDto(camion);
 
                 //Console.WriteLine(camion);
+            
+        }
+
+        public async Task<CamionReponseDTO> Update(string dominio, CamionUpdateRequestDTO updateRequest)
+        {
+            var camion = await _unitOfWork.CamionRepository.GetByDominio(dominio);
+            camion.Marca = updateRequest.Marca;
+            camion.Modelo = updateRequest.Modelo;
+            camion.Anio = updateRequest.Anio;
+            camion.Conductor = updateRequest.Conductor;
+
+            await _unitOfWork.Save();
+
+            return EntityToCamionResponseDto(camion);
+
             
         }
         private List<CamionReponseDTO> EntitiesToCamionResponseDtos(IEnumerable<Camion> camiones)

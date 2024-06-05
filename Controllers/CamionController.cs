@@ -37,5 +37,12 @@ namespace Integrador.Controllers
             var respuesta = await _camionService.Create(camion);
             return respuesta != null ? Ok(respuesta) : BadRequest("No se pudo ejercutar correctamente");
         }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<CamionReponseDTO>> Update(string dominio,CamionUpdateRequestDTO camion)
+        {
+            var respuesta = await _camionService.Update(dominio, camion);
+            return respuesta != null ? Ok(respuesta) : BadRequest("No se pudo ejercutar correctamente");
+        }
     }
 }
